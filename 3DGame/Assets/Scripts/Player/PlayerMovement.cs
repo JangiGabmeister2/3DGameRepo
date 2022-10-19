@@ -4,7 +4,6 @@ using UnityEngine;
 
 [AddComponentMenu("Game Systems/Player/Movement")]
 [RequireComponent(typeof(CharacterController))]
-[RequireComponent(typeof(MenuHandler))]
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -27,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (_charC.isGrounded)
             {
-                _moveDirection = transform.TransformDirection(new Vector3(Input.GetAxis("Horizontal Key"), 0, Input.GetAxis("Vertical Key"))) * speed;
+                _moveDirection = transform.TransformDirection(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"))) * speed;
 
                 if (Input.GetButton("Jump"))
                 {

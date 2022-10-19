@@ -54,7 +54,7 @@ public class SaveCubePosition : MonoBehaviour
 
         AssetDatabase.ImportAsset(path);
 
-        text.text = "Saved cube position!";
+        text.text = "Saved\ncube position!";
     }
 
     public void Read()
@@ -63,7 +63,7 @@ public class SaveCubePosition : MonoBehaviour
 
         string tempRead = reader.ReadLine();
 
-        splitter = tempRead.Split("|");
+        splitter = tempRead.Split('|');
 
         loadedPositions = new float[splitter.Length];
 
@@ -76,6 +76,6 @@ public class SaveCubePosition : MonoBehaviour
 
         reader.Close();
 
-        text.text = "Loaded cube position!";
+        text.text = "Loaded\ncube position!";
     }
 }
