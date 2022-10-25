@@ -17,6 +17,7 @@ public class SaveCubePosition : MonoBehaviour
     public string path = "Assets/Game Systems/Resources/Save/TextSaveFile.txt";
 
     public GameObject cube;
+    public GameObject centerCube;
 
     public Text text;
     
@@ -63,7 +64,7 @@ public class SaveCubePosition : MonoBehaviour
 
         string tempRead = reader.ReadLine();
 
-        splitter = tempRead.Split('|');
+        splitter = tempRead.Split("|");
 
         loadedPositions = new float[splitter.Length];
 
@@ -72,7 +73,7 @@ public class SaveCubePosition : MonoBehaviour
             loadedPositions[i] = float.Parse(splitter[i]);
         }
 
-        cube.transform.position = new Vector3(loadedPositions[0], 5.5f, loadedPositions[1]);
+        cube.transform.position = new Vector3(loadedPositions[0], centerCube.transform.position.y, loadedPositions[1]);
 
         reader.Close();
 

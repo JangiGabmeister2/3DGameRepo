@@ -68,8 +68,8 @@ public class MenuHandler : MonoBehaviour
                 {
                     panels[i].SetActive(false);
                 }
-                panels[2].SetActive(true);
-                panelState = PanelState.PlayerHUD;
+                panels[0].SetActive(true);
+                panelState = PanelState.MainMenu;
                 break;
         }
     }
@@ -77,7 +77,7 @@ public class MenuHandler : MonoBehaviour
     public void PlayButton()
     {
         gameState = GameStates.GameState;
-        SwtichStates();
+        SwitchStates();
         Debug.Log("Button Pressed");
     }
 
@@ -98,45 +98,55 @@ public class MenuHandler : MonoBehaviour
     private void Start()
     {
         gameState = GameStates.MenuState;
+
+        ChangePanel(0);
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Escape") && gameState == GameStates.GameState)
+        if (Input.GetButtonUp("Escape"))
         {
-            gameState = GameStates.MenuState;
-            ChangePanel(0);
-            SwtichStates();
-            Debug.Log("Switched to Main Menu");
+            if (gameState == GameStates.GameState)
+            {
+                gameState = GameStates.MenuState;
+                SwitchStates();
+                ChangePanel(0);
+            }
         }
     }
 
-    public void SwtichStates()
+    #region Menu and Game State
+    public IEnumerator MenuState()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        yield return null;
+    }
+
+    public IEnumerator GameState()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        yield return null;
+    }
+
+    public void SwitchStates()
     {
         switch (gameState)
         {
             case GameStates.MenuState:
-                if (Cursor.visible == false)
-                {
-                    Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.None;
-                }
+                StartCoroutine(MenuState());
                 break;
             case GameStates.GameState:
-                if (Cursor.visible == true)
-                {
-                    Cursor.visible = false;
-                    Cursor.lockState = CursorLockMode.Locked;
-                }
+                StartCoroutine(GameState());
                 break;
             default:
-                if (Cursor.visible == true)
-                {
-                    Cursor.visible = false;
-                    Cursor.lockState = CursorLockMode.Locked;
-                }
+                StartCoroutine(MenuState());
                 break;
         }
     }
+    #endregion
 }
 
