@@ -33,7 +33,7 @@ public class MenuHandler : MonoBehaviour
 
     public PanelState panelState;
 
-    public void ChangePanel(int value)
+    private void ChangePanel(int value)
     {
         panelState = (PanelState)value;
 
@@ -78,7 +78,6 @@ public class MenuHandler : MonoBehaviour
     {
         gameState = GameStates.GameState;
         SwitchStates();
-        Debug.Log("Button Pressed");
     }
 
     public void QuitGame()
@@ -104,33 +103,34 @@ public class MenuHandler : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonUp("Escape"))
+        if (Input.GetButton("Escape") && gameState == GameStates.GameState)
         {
-            if (gameState == GameStates.GameState)
-            {
-                gameState = GameStates.MenuState;
-                SwitchStates();
-                ChangePanel(0);
-            }
+            gameState = GameStates.MenuState;
+            SwitchStates();
         }
     }
 
+    private IEnumerator MenuState()
+    {
+        //Cursor.visible = true;
+        //Cursor.lockState = CursorLockMode.None;
+
+        ChangePanel(0);
+
+        yield return null;
+    }
+
+    private IEnumerator GameState()
+    {
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+
+        ChangePanel(2);
+
+        yield return null;
+    }
+
     #region Menu and Game State
-    public IEnumerator MenuState()
-    {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
-        yield return null;
-    }
-
-    public IEnumerator GameState()
-    {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
-        yield return null;
-    }
 
     public void SwitchStates()
     {

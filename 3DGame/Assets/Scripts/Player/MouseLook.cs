@@ -36,7 +36,7 @@ public class MouseLook : MonoBehaviour
 
     private void Update()
     {
-        if (MenuHandler.menuHandlerInstance.gameState == GameStates.GameState)
+        if (MenuHandler.menuHandlerInstance.gameState == GameStates.GameState)  
         {
             if (axis == RotationalAxis.MouseX)
             {

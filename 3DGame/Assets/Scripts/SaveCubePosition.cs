@@ -77,6 +77,6 @@ public class SaveCubePosition : MonoBehaviour
 
         reader.Close();
 
-        text.text = "Loaded\ncube position!";
+        text.text = "Loaded\ncube position!";   
     }
 }
